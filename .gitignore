@@ -1,0 +1,14 @@
+/vendor
+/node_modules
+/.env
+
+/storage/*.key
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/*
+
+/bootstrap/cache/*.php
+
+.DS_Store
+.idea
+.vscode
