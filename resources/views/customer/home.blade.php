@@ -15,8 +15,13 @@
                 <div class="col"
                     style="height: 400px; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
                     <a href="{{route('products.index', ['category' => $category->slug])}}">
-                        <img src="{{$category->image}}"
-                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
+                        {{-- 👇 (Tùy chọn) Sửa cả ảnh Danh mục cho đồng bộ --}}
+                        @if(str_contains($category->image, 'http'))
+                            <img src="{{$category->image}}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
+                        @else
+                            <img src="{{ asset('storage/' . $category->image) }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
+                        @endif
+                        
                         <div
                             style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
                             <h3 style="color: white; margin: 0; letter-spacing: 0.1em;">{{$category->name}}</h3>
@@ -35,7 +40,12 @@
             @foreach($featuredProducts as $product)
                 <div class="productCard">
                     <a href="{{route('products.show', $product->id)}}" class="productImage" style="display:block;">
-                        <img src="{{$product->image}}" alt="{{$product->name}}">
+                        @if(str_contains($product->image, 'http'))
+                            <img src="{{$product->image}}" alt="{{$product->name}}">
+                        @else
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{$product->name}}">
+                        @endif
+
                         @if($loop->first)
                             <span class="badge badgeSuccess" style="position:absolute; top: 1rem; left: 1rem;">Mới</span>
                         @endif

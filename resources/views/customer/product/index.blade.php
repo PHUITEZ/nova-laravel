@@ -83,12 +83,23 @@
                                 </a>
                                 <div class="flexBetween mt1">
                                     <p class="productPrice" style="margin:0;">{{number_format($product->price)}} đ</p>
-                                    <form action="{{route('cart.add')}}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="productId" value="{{$product->id}}">
-                                        <button type="submit" class="qtyBtn"
-                                            style="background:none; border: 1px solid var(--border-light); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">＋</button>
-                                    </form>
+                                    
+                                    @if ($product->stock > 0)
+                                        <form action="{{route('cart.add')}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="productId" value="{{$product->id}}">
+                                            <button type="submit" class="qtyBtn"
+                                                style="background:none; border: 1px solid var(--border-light); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                                ＋
+                                            </button>
+                                        </form>
+                                    @else
+                                        <button class="qtyBtn" disabled
+                                            style="background:none; border: 1px solid #ccc; width: 30px; height: 30px; border-radius: 50%; cursor: not-allowed; opacity:0.5; display: flex; align-items: center; justify-content: center;">
+                                            ✕
+                                        </button>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
