@@ -80,7 +80,6 @@
                                 style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border-light);">
                                 <div style="display:flex;align-items:center;gap:1rem;flex:1;">
                                     <div style="position:relative;flex-shrink:0;">
-                                        {{-- 👇 ĐOẠN ĐÃ SỬA: Kiểm tra ảnh online hay offline --}}
                                         @if(str_contains($item->product->image, 'http'))
                                             <img src="{{$item->product->image}}"
                                                 style="width:60px;height:60px;border-radius:8px;object-fit:cover;">
@@ -88,7 +87,6 @@
                                             <img src="{{ asset('storage/' . $item->product->image) }}"
                                                 style="width:60px;height:60px;border-radius:8px;object-fit:cover;">
                                         @endif
-                                        {{-- 👆 KẾT THÚC ĐOẠN SỬA --}}
                                         
                                         <span
                                             style="position:absolute;top:-8px;right:-8px;background:var(--accent);color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;">{{$item->quantity}}</span>

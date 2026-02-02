@@ -91,6 +91,9 @@ class CartController extends Controller
             return redirect()->route('login');
         $cartItem = CartItem::findOrFail($itemId);
         if ($request->quantity > 0) {
+            if ($request->quantity > $cartItem->product->stock) {
+                return redirect()->back()->with('error', 'Số lượng vượt quá tồn kho (còn ' . $cartItem->product->stock . ')');
+            }
             $cartItem->quantity = $request->quantity;
             $cartItem->save();
         } else {
