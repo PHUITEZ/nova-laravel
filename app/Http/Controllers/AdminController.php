@@ -17,10 +17,10 @@ class AdminController extends Controller
         // ❗ chỉ lấy đơn completed để tính tiền
         $orders = Order::with('user')->latest()->take(10)->get();
 
-        $totalOrders = Order::where('status', 'completed')->count(); // ✅ sửa
+        $totalOrders = Order::where('status', 'completed')->count();
         $totalProducts = Product::count();
 
-        $revenue = Order::where('status', 'completed')->sum('total'); // ✅ sửa
+        $revenue = Order::where('status', 'completed')->sum('total');
 
         return view('admin.dashboard', compact(
             'orders',
@@ -88,7 +88,6 @@ class AdminController extends Controller
 
         DB::transaction(function () use ($order, $oldStatus, $newStatus) {
 
-            // 1️⃣ pending → processing : TRỪ KHO
             if ($oldStatus === 'pending' && $newStatus === 'processing') {
                 foreach ($order->orderItems as $item) {
                     $product = $item->product;
